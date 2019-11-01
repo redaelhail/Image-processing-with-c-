@@ -1,0 +1,72 @@
+# depslib dependency file v1.0
+1569956197 source:c:\users\hp\desktop\exo01\image2d\main.cpp
+	<iostream>
+	"Image2D.h"
+
+1569956076 c:\users\hp\desktop\exo01\image2d\include\image2d.h
+	<stdio.h>
+	<iostream>
+	<tgmath.h>
+
+1569956464 source:c:\users\hp\desktop\exo01\image2d\src\image2d.cpp
+	"Image2D.h"
+	<cstdlib>
+
+1570794442 source:h:\windows\bureau\image2d\image2d\src\image2d.cpp
+	"Image2D.h"
+	<cstdlib>
+
+1570794898 h:\windows\bureau\image2d\image2d\include\image2d.h
+	<stdio.h>
+	<iostream>
+	<tgmath.h>
+
+1570794885 source:h:\windows\bureau\image2d\image2d\main.cpp
+	<iostream>
+	"Image2D.h"
+
+1571015439 source:c:\users\hp\desktop\image2d\image2d\main.cpp
+	<iostream>
+	"Image2D.h"
+
+1570978835 c:\users\hp\desktop\image2d\image2d\include\image2d.h
+	<stdio.h>
+	<iostream>
+	<tgmath.h>
+
+1571014755 source:c:\users\hp\desktop\image2d\image2d\src\image2d.cpp
+	"Image2D.h"
+	<cstdlib>
+
+1571072151 source:h:\windows\bureau\image2d\main.cpp
+	<iostream>
+	<cstdlib>
+	"Image2D.h"
+
+1571072040 h:\windows\bureau\image2d\include\image2d.h
+	<stdio.h>
+	<iostream>
+	<tgmath.h>
+
+1571072403 source:h:\windows\bureau\image2d\src\image2d.cpp
+	"Image2D.h"
+	<cstdlib>
+	<math.h>
+	<cmath>
+
+1572467843 source:c:\users\hp\desktop\image2d\main.cpp
+	<iostream>
+	<cstdlib>
+	"Image2D.h"
+
+1572373754 c:\users\hp\desktop\image2d\include\image2d.h
+	<stdio.h>
+	<iostream>
+	<tgmath.h>
+
+1572468077 source:c:\users\hp\desktop\image2d\src\image2d.cpp
+	"Image2D.h"
+	<cstdlib>
+	<math.h>
+	<cmath>
+
