@@ -1,7 +1,7 @@
 #include <iostream>
 #include<cstdlib>
 #include "Image2D.h"
-// git comment 
+// git comment for starting
 using namespace std;
 
 int main(){
