@@ -39,11 +39,11 @@ int main(){
 
 
    Image2D lena4("lena24.bmp",1, 1);
-   lena4.lowpass_filter("lena_median_filter.bmp",3);
+   lena4.lowpass_filter("lena_median_filter.bmp",6);
 
     Image2D lena6("lena24.bmp",1, 1);
-    lena6.highpass_filter("lena_highpass_filter.bmp");
+    lena6.highpass_filter("lena_highpass_filter.bmp", 30);
 
-    system("lena_median_filter.bmp");
+    system("lena_highpass_filter.bmp");
     return 0;
 }

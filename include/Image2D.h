@@ -40,7 +40,7 @@ public:
     //Image2D& operator+(const Image2D & A,const Image2D & B);
     void bruit(const char* filename);
     void lowpass_filter(const char* filename,int m);
-    void highpass_filter(const char* filename);
+    void highpass_filter(const char* filename, int m);
     double** convolution_low_pass_matrix(int m,double** A);//Generate low pass matrix convolution
     double** matrix_multiplication(double** A,double** B,double** C);
 

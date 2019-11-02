@@ -252,54 +252,38 @@ void Image2D::bruit(const char* filename){
 
    return C;
 }*/
-void Image2D::lowpass_filter(const char* filename,int m ){
+void Image2D::lowpass_filter(const char* filename,  int m ){
     FILE* fp = fopen(filename,"wb+");
-
-            //double sum;
-            //int l=-m; int k=-m;
-            //double val;
-   for(int i=m; i<nbx-m; i++){
-            for(int j=m; j<nby-m; j++){
-/*                int sum = 0;
-                int s=0;
-                int t=0;
-                while(t<2*m){
-                    while(s<2*m){
-                        sum+=ptr[i+s-m][j+t-m];
-                        s++;
-                    }
-                    t++;
-                }
-                ptr[i][j] = int(sum/(m*m));
+    int ** ctr;
+    ctr = ptr;
+    printf("cc");
+       for(int i=0; i<nbx; i++){
+            for(int j=0; j<nby; j++){
+                ctr[i][j] = ptr[i][j];
             }}
-
-
-*/
-// Git changes 
-int l=0;
-int k =0;
-int sum=0;
-                    while(l<m){
-                            if((i+l)<nbx&&(i+l)>=0){
-                            while(k<m){
-                                if((j+k)<nby&&(j+k)>=0){
-                                    sum +=  (*this).ptr[i+k][j+l];}
-                        k++;
-                    }
-                    l++;
+int l=-m+1;
+int k =-m+1;
+   for(int i=0; i<nbx; i++){
+            for(int j=0; j<nby; j++){
+                    for(int k=-m+1;k<=(m-1);k++){
+                          if((i+k<nbx)&&(i+k)>=0){
+                            for(int l=-m+1;l<=(m-1);l++){
+                                  if((j+l<nby)&&(j+l)>=0){
+                                     (*this).ptr[i][j] += int(ctr[i+k][j+l]/(m*m));
+                                     }
                     }
                     }
-                    (*this).ptr[i][j] = sum/(m*m);
-                    l =-m; k=-m;sum=0;
         }
+        //(*this).ptr[i][j]= int((*this).ptr[i][j]);
     }
+   }
     EnregistrerImage(fp);
     fclose(fp);
 }
 
-void Image2D::highpass_filter(const char* filename){
+void Image2D::highpass_filter(const char* filename, int m){
     FILE* fp = fopen(filename,"wb+");
-    for(int i=1;i<nbx-1;i++){
+    /*for(int i=1;i<nbx-1;i++){
             for(int j=1;j<nby-1;j++){
                   double dp =   (-ptr[i-1][j-1]-ptr[i-1][j]
                                     -ptr[i-1][j+1]-ptr[i][j-1]+
@@ -308,7 +292,29 @@ void Image2D::highpass_filter(const char* filename){
                                     -ptr[i+1][j+1])/9;
                  ptr[i][j] = int (dp);
                  }
+        }*/
+        int ** ctr;
+    ctr = ptr;
+       for(int i=0; i<nbx; i++){
+            for(int j=0; j<nby; j++){
+                ctr[i][j] = ptr[i][j];
+            }}
+int l=-m+1;
+int k=-m+1;
+   for(int i=0; i<nbx; i++){
+            for(int j=0; j<nby; j++){
+                    for(int k=-m+1;k<=(m-1);k++){
+                          if((i+k<nbx)&&(i+k)>=0){
+                            for(int l=-m+1;l<=(m-1);l++){
+                                  if((j+l<nby)&&(j+l)>=0){
+                                     (*this).ptr[i][j] +=- int(ctr[i+k][j+l]/(m*m));
+                                     }
+                    }
+                    }
         }
+        (*this).ptr[i][j]= int((*this).ptr[i][j])+ctr[i][j];
+    }
+   }
     EnregistrerImage(fp);
     fclose(fp);
 }
