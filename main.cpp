@@ -8,7 +8,6 @@ int main(){
     Image2D A;
     Image2D B;
 
-    //A+=B;// C=a+b;
     FILE *fp = fopen("new_image.bmp","wb+");
     A.EnregistrerImage(fp);
     fclose(fp);
@@ -39,11 +38,17 @@ int main(){
 
 
    Image2D lena4("lena24.bmp",1, 1);
-   lena4.lowpass_filter("lena_median_filter.bmp",6);
+   lena3.lowpass_filter("lena_median_filter.bmp",3);
 
     Image2D lena6("lena24.bmp",1, 1);
-    lena6.highpass_filter("lena_highpass_filter.bmp", 30);
+    lena6.highpass_filter("lena_highpass_filter.bmp", 3);
 
-    system("lena_highpass_filter.bmp");
+
+
+    /*FILE *fp1 = fopen("image_couleur.bmp","wb+");
+    lena4.EnregistrerImage_RGB(fp1);
+    fclose(fp1);*/
+
+    system("lena_median_filter.bmp");
     return 0;
 }

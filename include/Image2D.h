@@ -41,8 +41,8 @@ public:
     void bruit(const char* filename);
     void lowpass_filter(const char* filename,int m);
     void highpass_filter(const char* filename, int m);
-    double** convolution_low_pass_matrix(int m,double** A);//Generate low pass matrix convolution
-    double** matrix_multiplication(double** A,double** B,double** C);
+    void EnregistrerImage_RGB(FILE *fp);
+
 
 
 protected:
@@ -50,6 +50,9 @@ protected:
     void alloue_partie_dynamique(int dimx, int dimy);// : fonction d’allocation dynamique prenant en argument le nombre de pixels en x et en y. Utilisez new.
     void libere_partie_dynamique();// : fonction permettant libérer la mémoire dynamique. Utilisez delete.
     void init(int valeur_init);// : fonction permettant d’initialiser les valeurs des pixels à la valeur valeur_init.
+    unsigned char* imageBLU;//definition of the RED
+    unsigned char* imageGRE;//definition of the GREEN
+    unsigned char* imageRED;//definition of the BLUE
 
 private:
 

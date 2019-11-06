@@ -96,6 +96,7 @@ void Image2D::SeuilImage(FILE *fp){
     }
     EnregistrerImage(fp);
     fclose(fp);
+    std:cout<<"Seuil image"<<endl;
 }
 
 void Image2D::applyBinaryMask(char* mask,char* picture){
@@ -132,31 +133,40 @@ void Image2D::applyBinaryMask(char* mask,char* picture){
         fclose(fp1);
         delete [] img1;
         img1=NULL;
+        std:cout<<"Masque binaire"<<endl;
         }
 
 
 void Image2D::translation(int tx, int ty, const char* filename){
-
+    printf("Translation\n");
+    int a = 0;
+    int ** ctr;
+    ctr = ptr;
         FILE* fm=NULL;
         fm =fopen(filename,"wb+");
         for(int i=0;i<(*this).nbx-tx;i++){
             for(int j=0;j<(*this).nby-(ty);j++){
-                ptr[i][j]=ptr[i+tx][j+ty];
-            }
+                    ctr[i][j]=ptr[i+tx][j+ty];
+                            }
         }
         for(int i=0;i<tx;i++){
             for(int j=0;j<(ty);j++){
-                ptr[i][j] = 200;
+                ctr[i][j] = 200;
             }
         }
         for(int i=0;i<tx;i++){
             for(int j=ty;j<(nby);j++){
-                ptr[i][j] = 200;
+                ctr[i][j] = 200;
             }
         }
         for(int i=tx;i<nbx;i++){
             for(int j=0;j<(ty);j++){
-                ptr[i][j] = 200;
+                ctr[i][j] = 200;
+            }
+        }
+        for(int i=0;i<nbx;i++){
+            for(int j=0;j<nby;j++){
+                ptr[i][j]=ctr[i][j];
             }
         }
         EnregistrerImage(fm);
@@ -197,7 +207,7 @@ fp =fopen(filename,"wb");
             }
     }
     fclose(fp);
-
+std::cout<<"Rotation"<<endl;
   }
 
 /*Image2D& Image2D::operator+=(const Image2D & p2)
@@ -231,54 +241,36 @@ void Image2D::bruit(const char* filename){
     }
     EnregistrerImage(fp);
     fclose(fp);
+     cout<<"salt and pepper"<<endl;
 }
 
-/*double** Image2D::convolution_low_pass_matrix(int m,double **A){
-    for(int i=0; i<m; i++){
-        for(int j=0; j<m; j++){
-        A[i][j] = 1/(m*m);
-    }
-    }
-    return A;
-}
-*/
-/*double** Image2D::matrix_multiplication(double** A,double** B,double** C){
-    for(int i=0;i<sizeof(A)/sizeof(A[0]);i++){
-                    for(int j=0;j < sizeof(A[0])/sizeof(A[0][0]);j++){
-                        for(int k = 0; k< sizeof(A)/sizeof(A[0]);k++)
-                            C[i][j]+= A[i][k]*B[k][j];
-                    }
-    }
-
-   return C;
-}*/
 void Image2D::lowpass_filter(const char* filename,  int m ){
     FILE* fp = fopen(filename,"wb+");
-    int ** ctr;
-    ctr = ptr;
-    printf("cc");
+    int ** ctr = new int*[nbx];
        for(int i=0; i<nbx; i++){
+            ctr[i] = new int [nby];
+            }
+
+    for(int i=0; i<nbx; i++){
             for(int j=0; j<nby; j++){
-                ctr[i][j] = ptr[i][j];
-            }}
-int l=-m+1;
-int k =-m+1;
-   for(int i=0; i<nbx; i++){
-            for(int j=0; j<nby; j++){
-                    for(int k=-m+1;k<=(m-1);k++){
-                          if((i+k<nbx)&&(i+k)>=0){
-                            for(int l=-m+1;l<=(m-1);l++){
-                                  if((j+l<nby)&&(j+l)>=0){
-                                     (*this).ptr[i][j] += int(ctr[i+k][j+l]/(m*m));
-                                     }
-                    }
-                    }
-        }
-        //(*this).ptr[i][j]= int((*this).ptr[i][j]);
-    }
-   }
-    EnregistrerImage(fp);
+            int l = 0;
+            int k = 0;
+            int sum = 0;
+                while(k<m){
+                        while(l<m){
+                                if((i+k<nbx)&&(j+l<nby)){
+                                     ctr[i][j]+= ptr[i+k][j+l];}
+                                    l++;}
+                k++;
+            }
+    }}
+    for(int i = 0;i<nbx;i++){
+        for(int j=0;j<nby;j++) {
+             ptr[i][j] = int(ctr[i][j]/(m*m));
+    }}
+        EnregistrerImage(fp);
     fclose(fp);
+    cout<<"lowpass filter"<<endl;
 }
 
 void Image2D::highpass_filter(const char* filename, int m){
@@ -317,9 +309,44 @@ int k=-m+1;
    }
     EnregistrerImage(fp);
     fclose(fp);
+    std:cout<<"High pass filter"<<endl;
 }
 
+/*void Image2D::EnregistrerImage_RGB(FILE* fp){
+    CreateEntete();
 
+     int ** ptr_G = new int*[nbx];
+     int ** ptr_B = new int*[nbx];
+     int ** ptr_R = new int*[nbx];
+
+       for(int i=0; i<nbx; i++){
+            ptr_G[i] = new int [nby];
+            ptr_B[i] = new int [nby];
+            ptr_R[i] = new int [nby];
+            if ( ptr_B==NULL || ptr_B[i]==NULL || ptr_G==NULL || ptr_G[i]==NULL || ptr_R==NULL || ptr_R[i]==NULL )
+        {
+            std::cout<<"Probleme allocation memoire...exiting\n";
+            exit ( 1 );_
+        }
+            }
+            for(int i=0;i<nbx;i++){
+                for(int j=0; j<nby;j++){
+
+                    ptr_B[i][j] = (int)(double)(*this).imageBLU[i*((*this).nby)+j];
+                    ptr_G[i][j] = (int)(double)(*this).imageGRE[i*((*this).nby)+j];
+                    ptr_R[i][j] = (int)(double)(*this).imageRED[i*((*this).nby)+j];
+                }
+            };
+
+    fwrite(&enteteX,sizeof(unsigned char),54,fp);
+    for(int i = 0;i<nbx;i++){
+            for(int j = 0;j<nby;j++){
+                fwrite(&ptr[i][j],sizeof(unsigned char),1,fp);
+                fwrite(&ptr[i][j],sizeof(unsigned char),1,fp);
+                fwrite(&ptr[i][j],sizeof(unsigned char),1,fp);
+            }
+    }
+}*/
 Image2D::Image2D(int nx,int ny,int ngl,double milx,double mily,int p0){
 
    (*this). nbx = nx;
@@ -338,7 +365,8 @@ Image2D::Image2D(int nx,int ny,int ngl,double milx,double mily,int p0){
 Image2D::Image2D(char* path,double milx, double mily){
     FILE* f = fopen(path, "rb");
     unsigned char info[54];
-    fread(info, sizeof(unsigned char), 54, f); // read the 54-byte header
+    fread(info, sizeof(unsigned char), 54, f);
+    // read the 54-byte header
     // extract image height and width from header
     int width = *(int*)&info[18];
     int height = *(int*)&info[22];

@@ -70,17 +70,17 @@
 	<math.h>
 	<cmath>
 
-1572724355 source:c:\users\hp\desktop\image2d-git\main.cpp
+1573004170 source:c:\users\hp\desktop\image2d-git\main.cpp
 	<iostream>
 	<cstdlib>
 	"Image2D.h"
 
-1572724016 c:\users\hp\desktop\image2d-git\include\image2d.h
+1573006773 c:\users\hp\desktop\image2d-git\include\image2d.h
 	<stdio.h>
 	<iostream>
 	<tgmath.h>
 
-1572724229 source:c:\users\hp\desktop\image2d-git\src\image2d.cpp
+1573040876 source:c:\users\hp\desktop\image2d-git\src\image2d.cpp
 	"Image2D.h"
 	<cstdlib>
 	<math.h>
